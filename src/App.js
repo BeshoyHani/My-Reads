@@ -2,11 +2,9 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import * as bookAPI from "./config/BooksAPI";
 import SearchBar from "./components/Search/SearchBar";
-import ShelfEnum from './utils/ShelfEnum';
-import Shelf from './components/Shelf/Shelf';
-
+import { Route, Routes } from 'react-router-dom';
+import Home from "./components/Home/Home";
 function App() {
-  const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -19,7 +17,6 @@ function App() {
   const updateShelf = async (book, shelf) => {
     try {
       await bookAPI.update(book, shelf);
-      console.log(shelf)
       book.shelf = shelf;
       let newBooks = books.filter(b => b.id !== book.id);
       newBooks.push(book);
@@ -29,27 +26,17 @@ function App() {
     }
   }
   return (
-    <div className="app">
-      {showSearchPage ? (
-        <SearchBar showSearchPage={showSearchPage} setShowSearchPage={setShowSearchPage}
-          bookShelves={books} updateShelf={updateShelf} />
-      ) : (
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <Shelf shelfName={'Currently Reading'}
-            books={books.filter(book => book.shelf === ShelfEnum.Currently_Reading)} updateShelf={updateShelf} />
-          <Shelf shelfName={'Want to Read'}
-            books={books.filter(book => book.shelf === ShelfEnum.Want_to_Read)} updateShelf={updateShelf} />
-          <Shelf shelfName={'Read'}
-            books={books.filter(book => book.shelf === ShelfEnum.Read)} updateShelf={updateShelf} />
-          <div className="open-search">
-            <a onClick={() => setShowSearchPage(!showSearchPage)} href='#'>Add a book</a>
-          </div>
-        </div>
-      )}
-    </div>
+      <div className="app">
+    <Routes>
+        <Route exact path="/search" element={
+          <SearchBar bookShelves={books} updateShelf={updateShelf}/>
+        }>
+        </Route>
+        <Route exact path="/" element={
+          <Home books={books} updateShelf={updateShelf}/>
+        }></Route>
+    </Routes>
+      </div>
   );
 }
 

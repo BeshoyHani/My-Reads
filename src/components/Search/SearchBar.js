@@ -1,7 +1,8 @@
 import SearchResult from "./SearchResult";
 import * as bookAPI from '../../config/BooksAPI';
 import { useState } from 'react';
-const SearchBar = ({ showSearchPage, setShowSearchPage, bookShelves, updateShelf }) => {
+import { Link } from 'react-router-dom';
+const SearchBar = ({bookShelves, updateShelf }) => {
 
     const [query, setQuery] = useState('');
     const [searchedBooks, setSearchedBooks] = useState([]);
@@ -23,13 +24,9 @@ const SearchBar = ({ showSearchPage, setShowSearchPage, bookShelves, updateShelf
     return (
         <div className="search-books">
             <div className="search-books-bar">
-                <a
-                    className="close-search"
-                    onClick={() => setShowSearchPage(!showSearchPage)}
-
-                >
+                <Link to='/' className="close-search">
                     Close
-                </a>
+                </Link>
                 <div className="search-books-input-wrapper">
                     <input
                         value={query}
@@ -39,11 +36,10 @@ const SearchBar = ({ showSearchPage, setShowSearchPage, bookShelves, updateShelf
                     />
                 </div>
             </div>
-            {console.log('length: ', searchedBooks.length)}
             {
-                query !== '' && searchedBooks.length ===0 ?
-                 <h3 className="no-search-results">No Results matched !</h3>
-                  :  <SearchResult books={searchedBooks} updateShelf={updateShelf} bookShelves={bookShelves} />
+                query !== '' && searchedBooks.length === 0 ?
+                    <h3 className="no-search-results">No Results matched !</h3>
+                    : <SearchResult books={searchedBooks} updateShelf={updateShelf} bookShelves={bookShelves} />
             }
         </div>
     );
