@@ -1,10 +1,10 @@
 import Book from "./Book";
 
-const BookList = ({books}) => {
+const BookList = ({books, updateShelf}) => {
     return (
             <ol className="books-grid">
                 {books.map(book => <li key={book.id}>
-                    <Book book={book} />
+                    <Book book={book} updateShelf={updateShelf} />
                 </li>)}
             </ol>
     );

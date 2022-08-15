@@ -1,11 +1,11 @@
 import SearchResult from "./SearchResult";
 import * as bookAPI from '../../config/BooksAPI';
 import { useState } from 'react';
-const SearchBar = ({ showSearchPage, setShowSearchPage, books }) => {
+const SearchBar = ({ showSearchPage, setShowSearchPage, bookShelves, updateShelf }) => {
 
     const [query, setQuery] = useState('');
     const [searchedBooks, setSearchedBooks] = useState([]);
-    
+
     const handleInput = (event) => {
         const { value } = event.target;
         setQuery(value);
@@ -43,7 +43,7 @@ const SearchBar = ({ showSearchPage, setShowSearchPage, books }) => {
             {
                 query !== '' && searchedBooks.length ===0 ?
                  <h3 className="no-search-results">No Results matched !</h3>
-                  :  <SearchResult books={searchedBooks} />
+                  :  <SearchResult books={searchedBooks} updateShelf={updateShelf} bookShelves={bookShelves} />
             }
         </div>
     );

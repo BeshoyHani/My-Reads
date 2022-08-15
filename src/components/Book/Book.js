@@ -1,5 +1,12 @@
 import ShelfChanger from './../Shelf/ShelfChanger';
-const Book = ({ book }) => {
+import { useState } from 'react';
+
+const Book = ({ book, updateShelf }) => {
+
+    const [shelf, setShelf] = useState(book.shelf);
+    const changeShelf = (newShelf) => {
+        updateShelf(book, newShelf);
+    }
 
     return (
         <div className="book">
@@ -10,13 +17,13 @@ const Book = ({ book }) => {
                         width: 128,
                         height: 193,
                         backgroundImage:
-                            `url(${book.imageLinks.thumbnail}`,
+                            `url(${book?.imageLinks?.thumbnail}`,
                     }}
                 ></div>
-                <ShelfChanger bookShelf={book.shelf}/>
+                <ShelfChanger bookShelf={shelf} setShelf={setShelf} changeShelf={changeShelf} />
             </div>
-            <div className="book-title">{book.title}</div>
-            {book.authors.map(author => <div className="book-authors" key={author}>{author}</div>)}
+            <div className="book-title">{book?.title}</div>
+            {book.authors?.map(author => <div className="book-authors" key={author}>{author}</div>)}
         </div>
     );
 }
