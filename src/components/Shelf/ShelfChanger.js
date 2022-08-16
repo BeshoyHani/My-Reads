@@ -11,7 +11,6 @@ const ShelfChanger = ({ bookShelf, setShelf, changeShelf }) => {
     return (
         <div className="book-shelf-changer">
             <select value={bookShelf} onChange={updateShelf}>
-                {console.log(bookShelf)}
                 <option value="" disabled>
                     Move to...
                 </option>
