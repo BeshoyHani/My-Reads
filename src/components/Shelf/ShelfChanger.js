@@ -1,4 +1,3 @@
-import ShelfEnum from "../../utils/ShelfEnum";
 import Shelf from "../../utils/ShelfEnum";
 
 const ShelfChanger = ({ bookShelf, setShelf, changeShelf }) => {
@@ -11,8 +10,9 @@ const ShelfChanger = ({ bookShelf, setShelf, changeShelf }) => {
     
     return (
         <div className="book-shelf-changer">
-            <select value={bookShelf || Shelf.None} onChange={updateShelf}>
-                <option value="none" disabled>
+            <select value={bookShelf} onChange={updateShelf}>
+                {console.log(bookShelf)}
+                <option value="" disabled>
                     Move to...
                 </option>
                 <option value={Shelf.Currently_Reading}>
@@ -20,9 +20,7 @@ const ShelfChanger = ({ bookShelf, setShelf, changeShelf }) => {
                 </option>
                 <option value={Shelf.Want_to_Read}>Want to Read</option>
                 <option value={Shelf.Read}>Read</option>
-                {
-                    bookShelf !== ShelfEnum.None && <option value={Shelf.None}>None</option>
-                }
+                <option value={Shelf.None}>None</option>
             </select>
         </div>
     );
